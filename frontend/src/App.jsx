@@ -1,15 +1,14 @@
-//App.jsx
-
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from '@/_Redux/Slices/store';
 import PublicRouter from '@/pages/public/publicRouter';
 
 const App = () => {
-    return (
-        <BrowserRouter>
-            <PublicRouter />
-        </BrowserRouter>
-    );
-    };
+  return (
+    <Provider store={store}>
+      <PublicRouter />
+    </Provider>
+  );
+};
 
 export default App;

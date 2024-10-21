@@ -1,25 +1,44 @@
 import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useDispatch } from 'react-redux';
+import { addEmployee } from '@/_Redux/Slices/employeeSlice';
+import CustomModal from '@/components/CustomModal';
 
 const CreateEmployee = () => {
   const [employee, setEmployee] = useState({
     firstName: '',
     lastName: '',
     department: '',
-    startDate: ''
+    startDate: new Date(),
   });
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch(); // Utiliser dispatch pour envoyer l'action
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEmployee({
       ...employee,
-      [name]: value
+      [name]: value,
+    });
+  };
+
+  const handleDateChange = (date) => {
+    setEmployee({
+      ...employee,
+      startDate: date,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Employee Created: ', employee);
-    // Ici tu pourras ajouter la logique pour envoyer les données au backend
+    dispatch(addEmployee(employee)); // Ajouter l'employé au store Redux
+    setIsModalOpen(true); // Ouvrir la modale après création
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -55,15 +74,19 @@ const CreateEmployee = () => {
         </label>
         <label>
           Start Date:
-          <input
-            type="date"
-            name="startDate"
-            value={employee.startDate}
-            onChange={handleChange}
+          <DatePicker
+            selected={employee.startDate}
+            onChange={handleDateChange}
           />
         </label>
         <button type="submit">Create</button>
       </form>
+
+      <CustomModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        message="Employee Created!"
+      />
     </div>
   );
 };
