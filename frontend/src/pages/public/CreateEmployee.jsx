@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch } from 'react-redux';
 import { addEmployee } from '@/_Redux/Slices/employeeSlice';
 import CustomModal from '@/components/CustomModal';
+import DatePicker from '@/components/DatePicker';
+import Dropdown from '@/components/Dropdown';
 
 const CreateEmployee = () => {
   const [employee, setEmployee] = useState({
@@ -21,6 +21,13 @@ const CreateEmployee = () => {
     setEmployee({
       ...employee,
       [name]: value,
+    });
+  };
+
+  const handleDepartmentChange = (department) => {
+    setEmployee({
+      ...employee,
+      department,
     });
   };
 
@@ -65,17 +72,15 @@ const CreateEmployee = () => {
         </label>
         <label>
           Department:
-          <input
-            type="text"
-            name="department"
-            value={employee.department}
-            onChange={handleChange}
+          <Dropdown
+            selectedDepartment={employee.department} // Utilisation du composant Dropdown
+            onDepartmentChange={handleDepartmentChange}
           />
         </label>
         <label>
           Start Date:
           <DatePicker
-            selected={employee.startDate}
+            selectedDate={employee.startDate}
             onChange={handleDateChange}
           />
         </label>

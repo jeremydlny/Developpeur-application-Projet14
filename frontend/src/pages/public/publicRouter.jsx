@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import CreateEmployee from '@/pages/public/CreateEmployee';
 import EmployeeList from '@/pages/public/EmployeeList';
-import NotFound from '@/pages/public/NotFound';
+import NotFound from '@/components/NotFound';
 
 const PublicRouter = () => {
   return (
