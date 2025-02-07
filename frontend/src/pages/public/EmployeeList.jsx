@@ -1,15 +1,19 @@
-import React from 'react';
+//EmployeeList.jsx
+
+import React, { useEffect, useState } from 'react';
+import EmployeeTable from '@/components/EmployeeTable';
 import { useSelector } from 'react-redux';
 import { selectAllEmployees } from '@/_Redux/selector/employeeSelector';
-import EmployeeTable from '@/components/EmployeeTable'; // Import du composant EmployeeTable
+
+import '@/styles/pages/EmployeeList.css'; // Ajout du CSS
 
 const EmployeeList = () => {
-  const employees = useSelector(selectAllEmployees); // Récupérer la liste des employés depuis Redux
+  const employees = useSelector(selectAllEmployees);
 
   return (
     <div>
-      <EmployeeTable data={employees} /> {/* Utilisation du tableau interactif */}
-      <a href="/">Home</a>
+      {/* <h1>Employee List</h1> */}
+      <EmployeeTable data={employees} />
     </div>
   );
 };

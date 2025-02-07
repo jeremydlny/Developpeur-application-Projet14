@@ -1,50 +1,92 @@
-/* Styles spécifiques au formulaire */
+body,
+html {
+  height: 100%;
+  /* Assurez-vous que le body et html prennent toute la hauteur de l'écran */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  /* Centre horizontalement */
+  align-items: center;
+  /* Centre verticalement */
+  background-color: #1e1e1e;
+  /* Ajoutez une couleur de fond si nécessaire */
+}
+
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem; /* Espacement entre les champs */
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: left; /* Pour aligner les labels à gauche */
-  }
-  
-  label {
-    font-size: 16px;
-    margin-bottom: 0.5rem;
-  }
-  
-  input, select, .react-datepicker-wrapper {
-    width: 100%; /* Tous les champs prennent 100% de la largeur */
-    padding: 0.75rem;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-  }
-  
-  button {
-    padding: 0.75rem 1.5rem;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 1.5rem; /* Espacement entre les champs et le bouton */
-  }
-  
-  button:hover {
-    background-color: #218838;
-  }
-  
-  /* Styles pour les titres */
-  h1, h2 {
-    margin-bottom: 1.5rem;
-    text-align: center; /* Centrer les titres */
-  }
-  
-  /* Styles pour centrer et structurer le contenu */
-  .container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem; /* Reduced margin-bottom */
+  gap: 0.5rem; /* Reduced gap */
+  background-color: #222;
+  /* Couleur de fond du formulaire */
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+form fieldset legend {
+  margin-bottom: 0px;
+}
+
+.create-employee h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  text-align: center;
+  margin: auto;
+  font-weight: 500;
+  margin-top: 2rem; /* Reduced margin-top */
+}
+
+h2 {
+  margin-bottom: 0px;
+  font-size: 2rem;
+  text-align: center;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+input,
+select,
+.ant-picker {
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  border-radius: 4px;
+}
+
+button {
+  padding: 0.75rem;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #1890ff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #40a9ff;
+}
+
+fieldset {
+  margin-top: 0px;
+  padding: 0.5rem; /* Reduced padding */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+legend {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+a {
+  color: #1890ff;
+  text-align: center;
+  display: block;
+  margin-bottom: 0px;
+}

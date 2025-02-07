@@ -1,0 +1,147 @@
+body,
+html {
+    overflow-x: hidden;
+}
+
+.employee-table {
+    margin: 0;
+    /* reset des marges */
+    padding: 260px 20px 20px 20px;
+    /* Augmente le padding en haut */
+    min-height: 100vh;
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    overflow: auto;
+    /* Changé de 'visible' à 'auto' */
+}
+
+.ant-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+    /* ajoute de l'espace en bas du tableau */
+    max-height: calc(100vh - 300px);
+    /* Ajout d'une hauteur maximale */
+    overflow-y: auto;
+    /* Permet le défilement vertical */
+}
+
+/* Assure que le contenu de la table peut s'étendre verticalement */
+.ant-table {
+    margin-top: 2rem;
+    height: auto;
+}
+
+/* Forcer le conteneur à prendre toute la largeur */
+.ant-table-container {
+    width: 100% !important;
+}
+
+.employee-table h1 {
+    margin-top: 0;
+    /* Retire la marge du haut puisqu'on utilise le padding du parent */
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+/* Conteneur principal de la pagination */
+.ant-pagination {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    margin: 16px 0 !important;
+}
+
+/* Texte "Showing X to Y of Z entries" */
+.ant-pagination-total-text {
+    position: absolute !important;
+    left: 0 !important;
+    color: #fff;
+    margin-right: auto !important;
+}
+
+/* Style des boutons de pagination */
+.ant-pagination-prev,
+.ant-pagination-next,
+.ant-pagination-item {
+    margin-left: 8px !important;
+}
+
+.ant-pagination-next a,
+.ant-pagination-disabled a {
+    color: #fff !important;
+}
+
+.employee-table .create-link {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.employee-table .create-link a {
+    color: #646cff;
+    font-size: 16px;
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+.employee-table .create-link a:hover {
+    text-decoration: underline;
+}
+
+/* Ajustements responsifs */
+@media screen and (max-height: 900px) {
+    .employee-table {
+        padding-top: 30px;
+    }
+
+    .ant-table-wrapper {
+        max-height: calc(100vh - 100px);
+    }
+}
+
+@media screen and (max-height: 800px) {
+    .employee-table {
+        padding-top: 80px;
+    }
+
+    .ant-table-wrapper {
+        max-height: calc(100vh - 120px);
+    }
+}
+
+@media screen and (max-height: 700px) {
+    .employee-table {
+        padding-top: 100px;
+    }
+
+    .ant-table-wrapper {
+        max-height: calc(100vh - 140px);
+    }
+}
+
+/* Pour les écrans mobiles */
+@media screen and (max-width: 768px) {
+    .employee-table {
+        padding-top: 100px;
+    }
+
+    .ant-table-wrapper {
+        margin: 0 -16px;
+        max-height: calc(100vh - 140px);
+    }
+
+    .ant-pagination {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+    }
+
+    .ant-pagination-total-text {
+        position: relative !important;
+        width: 100% !important;
+        text-align: center !important;
+        margin-bottom: 16px !important;
+    }
+}

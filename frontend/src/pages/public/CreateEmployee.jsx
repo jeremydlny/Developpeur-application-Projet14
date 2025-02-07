@@ -1,26 +1,52 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addEmployee } from '@/_Redux/Slices/employeeSlice';
-import CustomModal from '@/components/CustomModal';
 import DatePicker from '@/components/DatePicker';
-import Dropdown from '@/components/Dropdown';
+import DepartmentDropdown from '@/components/DepartmentDropdown'; // Renommé
+import StateDropdown from '@/components/StateDropdown'; // Renommé pour les états
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { CustomModal } from '@jeremydlny/custommodal';
+import '@jeremydlny/custommodal/styles';
+
+import '@/styles/pages/CreateEmployee.css';
 
 const CreateEmployee = () => {
   const [employee, setEmployee] = useState({
     firstName: '',
     lastName: '',
+    dateOfBirth: null,
+    startDate: null,
+    street: '',
+    city: '',
+    state: '',
+    zipCode: '',
     department: '',
-    startDate: new Date(),
   });
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const dispatch = useDispatch(); // Utiliser dispatch pour envoyer l'action
+  const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEmployee({
       ...employee,
       [name]: value,
+    });
+  };
+
+  const handleDateOfBirthChange = (date) => {
+    setEmployee({
+      ...employee,
+      dateOfBirth: date,
+    });
+  };
+
+  const handleStartDateChange = (date) => {
+    setEmployee({
+      ...employee,
+      startDate: date,
     });
   };
 
@@ -31,26 +57,38 @@ const CreateEmployee = () => {
     });
   };
 
-  const handleDateChange = (date) => {
+  const handleStateChange = (state) => {
     setEmployee({
       ...employee,
-      startDate: date,
+      state,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addEmployee(employee)); // Ajouter l'employé au store Redux
-    setIsModalOpen(true); // Ouvrir la modale après création
+    const formattedEmployee = {
+      ...employee,
+      dateOfBirth: employee.dateOfBirth ? employee.dateOfBirth.toISOString() : null,
+      startDate: employee.startDate ? employee.startDate.toISOString() : null
+    };
+
+    dispatch(addEmployee(formattedEmployee));
+    
+    console.log("Employee data submitted:", formattedEmployee);
+    setShowModal(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const handleCloseModal = () => {
+    setShowModal(false);
+    navigate('/employee-list');
   };
 
   return (
-    <div>
-      <h1>Create Employee</h1>
+    <div className="create-employee">
+      <h1>HRnet</h1>
+      <Link to="/employee-list">View Current Employees</Link>
+
+      <h2>Create Employee</h2>
       <form onSubmit={handleSubmit}>
         <label>
           First Name:
@@ -70,28 +108,76 @@ const CreateEmployee = () => {
             onChange={handleChange}
           />
         </label>
+
+        {/* Champ Date of Birth */}
         <label>
-          Department:
-          <Dropdown
-            selectedDepartment={employee.department} // Utilisation du composant Dropdown
-            onDepartmentChange={handleDepartmentChange}
+          Date of Birth:
+          <DatePicker
+            selectedDate={employee.dateOfBirth}
+            onChange={handleDateOfBirthChange}
           />
         </label>
+
+        {/* Champ Start Date */}
         <label>
           Start Date:
           <DatePicker
             selectedDate={employee.startDate}
-            onChange={handleDateChange}
+            onChange={handleStartDateChange}
           />
         </label>
+
+        {/* Section Adresse */}
+        <fieldset>
+          <legend>Address</legend>
+          <label>
+            Street:
+            <input
+              type="text"
+              name="street"
+              value={employee.street}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            City:
+            <input
+              type="text"
+              name="city"
+              value={employee.city}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            State:
+            <StateDropdown
+              selectedState={employee.state}
+              onStateChange={handleStateChange}
+            />
+          </label>
+          <label>
+            Zip Code:
+            <input
+              type="text"
+              name="zipCode"
+              value={employee.zipCode}
+              onChange={handleChange}
+            />
+          </label>
+        </fieldset>
+
+        {/* Champ Department */}
+        <label>
+          Department:
+          <DepartmentDropdown
+            selectedDepartment={employee.department}
+            onDepartmentChange={handleDepartmentChange}
+          />
+        </label>
+
         <button type="submit">Create</button>
       </form>
-
-      <CustomModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        message="Employee Created!"
-      />
+      <CustomModal show={showModal} message="Employee Created Successfully!" onClose={handleCloseModal} />
     </div>
   );
 };
