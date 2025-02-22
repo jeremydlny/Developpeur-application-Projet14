@@ -1,17 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  employees: [],
-};
-
-const employeeSlice = createSlice({
-  name: 'employees',
-  initialState,
-  reducers: {
-    addEmployee: (state, action) => {
-      state.employees.push(action.payload);
-    },
+const employeeSlice = createSlice({ // Création d'une tranche
+  name: 'employees', 
+  initialState: {
+    list: [] // Utilisation d'un tableau simple
   },
+  reducers: { // Ajout d'un réducteur
+    addEmployee: (state, action) => { // Ajout d'un employé
+      state.list.push(action.payload); // Ajout direct dans le tableau
+    } 
+  }
 });
 
 export const { addEmployee } = employeeSlice.actions;

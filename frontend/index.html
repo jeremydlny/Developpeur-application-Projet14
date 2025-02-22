@@ -2,12 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    
+    <!-- Priorité au CSS critique -->
+    <link rel="preload" href="/src/styles/index.css" as="style">
+    <link rel="preload" href="/src/styles/pages/CreateEmployee.css" as="style">
+    
+    <!-- Connexions préalables -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    
+    <!-- Chargement asynchrone des scripts non-critiques -->
+    <link rel="modulepreload" href="/src/main.jsx">
+    <link rel="modulepreload" href="/src/App.jsx">
+    <meta name="description" content="HRnet employee management system">
+    
+    <title>HRnet</title>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.jsx" async defer></script>
   </body>
 </html>

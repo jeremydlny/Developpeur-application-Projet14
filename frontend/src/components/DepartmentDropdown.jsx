@@ -3,24 +3,25 @@ import { Dropdown, Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import 'antd/dist/reset.css';
 
-const DepartmentDropdown = ({ selectedDepartment, onDepartmentChange }) => {
-  const departments = ['Sales', 'Marketing', 'Engineering', 'Human Resources', 'Legal'];
+// Composant `DepartmentDropdown` pour la sélection du département
+const DepartmentDropdown = ({ selectedDepartment, onDepartmentChange }) => { // Props : selectedDepartment et onDepartmentChange
+  const departments = ['Sales', 'Marketing', 'Engineering', 'Human Resources', 'Legal']; // Liste des départements
 
   // Création d'un menu avec `items`
-  const items = departments.map((department) => ({
-    key: department,
-    label: department,
+  const items = departments.map((department) => ({ // Utilisation correcte de `map`
+    key: department,  // Clé de l'élément
+    label: department, // Libellé de l'élément
   }));
 
-  return (
-    <Dropdown
-      menu={{
-        items,
+  return ( // Composant Dropdown
+    <Dropdown 
+      menu={{ // Menu avec les items
+        items, // Utilisation correcte de `items`
         onClick: ({ key }) => onDepartmentChange(key), // Utilisation correcte de `menu`
-      }}
-      trigger={['click']}
+      }} 
+      trigger={['click']} // Déclenchement du menu au clic
     >
-      <Button>
+      <Button> 
         {selectedDepartment || 'Select Department'} <DownOutlined />
       </Button>
     </Dropdown>

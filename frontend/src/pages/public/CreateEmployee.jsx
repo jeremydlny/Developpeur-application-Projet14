@@ -1,95 +1,153 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo, memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { addEmployee } from '@/_Redux/Slices/employeeSlice';
 import DatePicker from '@/components/DatePicker';
-import DepartmentDropdown from '@/components/DepartmentDropdown'; // Renommé
-import StateDropdown from '@/components/StateDropdown'; // Renommé pour les états
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import DepartmentDropdown from '@/components/DepartmentDropdown';
+import StateDropdown from '@/components/StateDropdown';
+import { Link, useNavigate } from 'react-router-dom';
 import { CustomModal } from '@jeremydlny/custommodal';
 import '@jeremydlny/custommodal/styles';
-
 import '@/styles/pages/CreateEmployee.css';
 
-const CreateEmployee = () => {
-  const [employee, setEmployee] = useState({
-    firstName: '',
-    lastName: '',
-    dateOfBirth: null,
-    startDate: null,
-    street: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    department: '',
-  });
+const ValidationError = memo(({ error }) => {
+  if (!error) return null;
+  return <span className="error-message">{error}</span>;
+});
 
+const initialEmployeeState = {
+  firstName: '',
+  lastName: '',
+  dateOfBirth: null,
+  startDate: null,
+  street: '',
+  city: '',
+  state: '',
+  zipCode: '',
+  department: '',
+};
+
+const departmentOptions = [
+  { value: 'sales', label: 'Sales' },
+  { value: 'marketing', label: 'Marketing' },
+  { value: 'engineering', label: 'Engineering' },
+  { value: 'hr', label: 'Human Resources' },
+  { value: 'legal', label: 'Legal' }
+];
+
+const CreateEmployee = () => {
+  const [employee, setEmployee] = useState(initialEmployeeState);
   const [showModal, setShowModal] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
+
+  // Ajout de la mémoisation des options de département
+  const memoizedDepartmentOptions = useMemo(() => departmentOptions, []);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  const validateEmployee = useMemo(() => (employeeData) => {
+    const errors = {};
+
+    // Validation du prénom et nom
+    if (employeeData.firstName.length < 2) errors.firstName = 'First name must be at least 2 characters long';
+    if (employeeData.lastName.length < 2) errors.lastName = 'Last name must be at least 2 characters long';
+
+    // Validation de l'âge
+    if (!employeeData.dateOfBirth) {
+      errors.dateOfBirth = 'Date of birth is required';
+    } else {
+      const birthDate = new Date(employeeData.dateOfBirth);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear(); // Changed from const to let
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+
+      // Adjust age if birthday hasn't occurred this year
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      if (age < 18) {
+        errors.dateOfBirth = 'Employee must be at least 18 years old';
+      } else if (birthDate >= today) {
+        errors.dateOfBirth = 'Invalid date of birth';
+      }
+    }
+
+    // Autres validations
+    if (!employeeData.startDate || employeeData.startDate <= new Date()) errors.startDate = 'Start date must be in the future';
+    if (!employeeData.department) errors.department = 'Department is required';
+    if (!/^\d{5}$/.test(employeeData.zipCode)) errors.zipCode = 'Zip code must be 5 digits';
+
+    return errors;
+  }, []);
+
+  const handleChange = useCallback((e) => {
     const { name, value } = e.target;
-    setEmployee({
-      ...employee,
+    setEmployee((prev) => ({
+      ...prev,
       [name]: value,
-    });
-  };
+    }));
+  }, []);
 
-  const handleDateOfBirthChange = (date) => {
-    setEmployee({
-      ...employee,
-      dateOfBirth: date,
-    });
-  };
+  const handleDateChange = useCallback((date, field) => {
+    setEmployee((prev) => ({
+      ...prev,
+      [field]: date,
+    }));
+  }, []);
 
-  const handleStartDateChange = (date) => {
-    setEmployee({
-      ...employee,
-      startDate: date,
-    });
-  };
+  const handleDropdownChange = useCallback((value, field) => {
+    setEmployee((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  }, []);
 
-  const handleDepartmentChange = (department) => {
-    setEmployee({
-      ...employee,
-      department,
-    });
-  };
+  const resetForm = useCallback(() => {
+    setEmployee(initialEmployeeState);
+    setValidationErrors({});
+  }, []);
 
-  const handleStateChange = (state) => {
-    setEmployee({
-      ...employee,
-      state,
-    });
-  };
+  const handleCloseModal = useCallback(() => {
+    setShowModal(false);
+    resetForm();
+    navigate('/employee-list');
+  }, [navigate, resetForm]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
+    const errors = validateEmployee(employee);
+
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
+      return;
+    }
+
     const formattedEmployee = {
       ...employee,
-      dateOfBirth: employee.dateOfBirth ? employee.dateOfBirth.toISOString() : null,
-      startDate: employee.startDate ? employee.startDate.toISOString() : null
+      dateOfBirth: employee.dateOfBirth?.toISOString(),
+      startDate: employee.startDate?.toISOString(),
+      id: `EMP${Date.now()}`,
+      createdAt: new Date().toISOString(),
     };
 
-    dispatch(addEmployee(formattedEmployee));
-    
-    console.log("Employee data submitted:", formattedEmployee);
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    navigate('/employee-list');
-  };
+    try {
+      await dispatch(addEmployee(formattedEmployee));
+      setShowModal(true);
+    } catch (error) {
+      console.error('Error adding employee:', error);
+      setValidationErrors({ submit: 'Failed to create employee' });
+    }
+  }, [employee, dispatch, validateEmployee]);
 
   return (
     <div className="create-employee">
       <h1>HRnet</h1>
       <Link to="/employee-list">View Current Employees</Link>
+      {validationErrors.submit && <ValidationError error={validationErrors.submit} />}
 
       <h2>Create Employee</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <label>
           First Name:
           <input
@@ -97,8 +155,11 @@ const CreateEmployee = () => {
             name="firstName"
             value={employee.firstName}
             onChange={handleChange}
+            required
           />
+          <ValidationError error={validationErrors.firstName} />
         </label>
+
         <label>
           Last Name:
           <input
@@ -106,28 +167,29 @@ const CreateEmployee = () => {
             name="lastName"
             value={employee.lastName}
             onChange={handleChange}
+            required
           />
+          <ValidationError error={validationErrors.lastName} />
         </label>
 
-        {/* Champ Date of Birth */}
         <label>
           Date of Birth:
           <DatePicker
             selectedDate={employee.dateOfBirth}
-            onChange={handleDateOfBirthChange}
+            onChange={(date) => handleDateChange(date, 'dateOfBirth')}
           />
+          <ValidationError error={validationErrors.dateOfBirth} />
         </label>
 
-        {/* Champ Start Date */}
         <label>
           Start Date:
           <DatePicker
             selectedDate={employee.startDate}
-            onChange={handleStartDateChange}
+            onChange={(date) => handleDateChange(date, 'startDate')}
           />
+          <ValidationError error={validationErrors.startDate} />
         </label>
 
-        {/* Section Adresse */}
         <fieldset>
           <legend>Address</legend>
           <label>
@@ -152,7 +214,7 @@ const CreateEmployee = () => {
             State:
             <StateDropdown
               selectedState={employee.state}
-              onStateChange={handleStateChange}
+              onStateChange={(state) => handleDropdownChange(state, 'state')}
             />
           </label>
           <label>
@@ -162,24 +224,32 @@ const CreateEmployee = () => {
               name="zipCode"
               value={employee.zipCode}
               onChange={handleChange}
+              pattern="\d{5}"
             />
+            <ValidationError error={validationErrors.zipCode} />
           </label>
         </fieldset>
 
-        {/* Champ Department */}
         <label>
           Department:
           <DepartmentDropdown
             selectedDepartment={employee.department}
-            onDepartmentChange={handleDepartmentChange}
+            onDepartmentChange={(department) => handleDropdownChange(department, 'department')}
+            options={memoizedDepartmentOptions}
           />
+          <ValidationError error={validationErrors.department} />
         </label>
 
         <button type="submit">Create</button>
       </form>
-      <CustomModal show={showModal} message="Employee Created Successfully!" onClose={handleCloseModal} />
+
+      <CustomModal
+        show={showModal}
+        message="Employee Created Successfully!"
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };
 
-export default CreateEmployee;
+export default memo(CreateEmployee);

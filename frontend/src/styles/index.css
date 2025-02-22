@@ -1,38 +1,62 @@
+/* Styles de base */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  /* Amélioration du contraste du texte */
+  color: rgba(255, 255, 255, 0.95); /* Augmenté de 0.87 à 0.95 */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+html {
+  min-height: 100vh;
+  margin: 0;
+  /* Assombrissement léger du gradient pour un meilleur contraste */
+  background: linear-gradient(270deg, 
+    hsla(0, 0%, 8%, 0.95) 0%, /* Plus sombre que 12% */
+    hsla(209, 100%, 45%, 0.95) 100% /* Plus sombre que 55% */
+  );
+  background: -moz-linear-gradient(270deg, hsla(0, 0%, 8%, 0.95) 0%, hsla(209, 100%, 45%, 0.95) 100%);
+  background: -webkit-linear-gradient(270deg, hsla(0, 0%, 8%, 0.95) 0%, hsla(209, 100%, 45%, 0.95) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#141414", endColorstr="#1973e6", GradientType=1 );
 }
 
+/* Reste des styles */
 body {
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: transparent;
 }
 
+/* Amélioration du contraste des liens */
+a {
+  font-weight: 600; /* Plus gras */
+  color: #7b93ff; /* Plus clair */
+  text-decoration: inherit;
+}
+a:hover {
+  color: #8e9fff; /* Plus clair que #535bf2 */
+}
+
+/* Amélioration du contraste des éléments spécifiques */
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  /* Ajout d'un text-shadow pour améliorer la lisibilité */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 600; /* Plus gras */
+  color: rgba(255, 255, 255, 0.95); /* Opacité augmentée */
+}
+
+h2 {
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 button {
@@ -56,13 +80,12 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: rgba(255, 255, 255, 0.87);
   }
   a:hover {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: rgba(26, 26, 26, 0.8);
   }
 }

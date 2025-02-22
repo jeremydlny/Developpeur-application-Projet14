@@ -9,7 +9,6 @@ html {
   /* Centre horizontalement */
   align-items: center;
   /* Centre verticalement */
-  background-color: #1e1e1e;
   /* Ajoutez une couleur de fond si nécessaire */
 }
 
@@ -28,13 +27,28 @@ form fieldset legend {
   margin-bottom: 0px;
 }
 
+/* Styles critiques optimisés */
+.create-employee {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 .create-employee h1 {
-  font-size: 3.2em;
+  /* Styles basiques uniquement */
+  font-size: 2rem;
   line-height: 1.1;
   text-align: center;
-  margin: auto;
+  margin-bottom: 1rem;
   font-weight: 500;
-  margin-top: 2rem; /* Reduced margin-top */
+  color: inherit;
+}
+
+@media screen and (max-width: 768px) {
+  .create-employee h1 {
+    font-size: 2em;
+    /* Simplifier encore plus sur mobile */
+  }
 }
 
 h2 {

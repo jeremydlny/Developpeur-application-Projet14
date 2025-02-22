@@ -1,0 +1,42 @@
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Prend toute la hauteur de l'écran */
+  text-align: center;
+  padding: 2rem;
+  position: absolute; /* Ajout */
+  top: 50%; /* Ajout */
+  left: 50%; /* Ajout */
+  transform: translate(-50%, -50%); /* Ajout */
+  width: 100%; /* Ajout */
+}
+
+.not-found-container h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.not-found-container p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.home-link {
+  padding: 0.8rem 1.5rem;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  color: #7b93ff; /* Pour correspondre au style global */
+}
+
+.home-link:hover {
+  border-color: #646cff;
+  background-color: rgba(26, 26, 26, 0.8);
+  color: #8e9fff;
+}
