@@ -1,0 +1,16 @@
+/* styles/components/forms/EmployeeForm.css */
+.employee-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+    background-color: #222;
+    padding: 1rem;
+    border-radius: 8px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .submit-button {
+    margin-top: 1rem;
+  }

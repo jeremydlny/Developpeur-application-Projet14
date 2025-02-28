@@ -29,32 +29,68 @@ form fieldset legend {
 
 /* Styles critiques optimisés */
 .create-employee {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  margin: 0;
+  padding: 54px 20px 20px 20px;
+  min-height: 100vh;
+  height: auto;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  overflow: auto;
 }
 
-.create-employee h1 {
-  /* Styles basiques uniquement */
+.page-title {
   font-size: 2rem;
   line-height: 1.1;
   text-align: center;
   margin-bottom: 1rem;
-  font-weight: 500;
-  color: inherit;
+}
+
+.navigation-link {
+  color: #1890ff;
+  text-align: center;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .create-employee {
+    padding-top: 100px;
+  }
+  
+  .page-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Style des titres */
+.create-employee h1 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.create-employee h2 {
+  /* margin: 0.5rem 0 1rem 0; */
+  text-align: center;
+  font-size: 1.5rem;
+  color: #ffffff; /* Blanc pur pour meilleur contraste */
 }
 
 @media screen and (max-width: 768px) {
   .create-employee h1 {
-    font-size: 2em;
+    font-size: 2rem;
     /* Simplifier encore plus sur mobile */
   }
 }
 
 h2 {
-  margin-bottom: 0px;
-  font-size: 2rem;
+  margin: 1rem 0 2rem 0;
   text-align: center;
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 label {
@@ -103,4 +139,138 @@ a {
   text-align: center;
   display: block;
   margin-bottom: 0px;
+}
+
+/* Style des liens */
+.create-employee a {
+  display: block;
+  text-align: center;
+  /* margin: 1rem 0; */
+  color: #646cff;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.create-employee a:hover {
+  text-decoration: underline;
+}
+
+/* Style du formulaire avec fond blanc */
+.ant-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1rem;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  border: 1px solid #e8e8e8;
+}
+
+/* Style des champs de formulaire */
+.ant-form-item {
+  margin-bottom: 0.5rem !important;
+}
+
+/* Réduction de l'espace entre label et input */
+.ant-form-item-label {
+  padding: 0 !important;
+}
+
+.ant-form-item-label > label {
+  color: #262626 !important;
+  font-weight: 600;
+  font-size: 0.875rem;
+  height: 20px !important;
+  margin: 0 !important;
+}
+
+.ant-input,
+.ant-select-selector,
+.ant-picker {
+  background-color: #ffffff !important;
+  border: 1px solid #bfbfbf !important; /* Plus foncé pour meilleur contraste */
+  color: #262626 !important;
+  font-size: 1rem;
+}
+
+.ant-input:hover,
+.ant-select-selector:hover,
+.ant-picker:hover {
+  border-color: #40a9ff !important;
+}
+
+.ant-input:focus,
+.ant-select-selector:focus,
+.ant-picker-focused {
+  border-color: #1890ff !important;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2) !important;
+}
+
+/* Amélioration du contraste des placeholders */
+.ant-select-selection-placeholder,
+.ant-picker-input > input::placeholder,
+.ant-input::placeholder {
+  color: #595959 !important; /* Plus foncé pour meilleur contraste */
+}
+
+/* Style du bouton avec meilleur contraste */
+.ant-btn-primary {
+  width: 100%;
+  height: 40px;
+  margin-top: 0.75rem;
+  background-color: #096dd9 !important; /* Plus foncé pour meilleur contraste */
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+
+.ant-btn-primary:hover {
+  background-color: #1890ff !important;
+}
+
+.ant-btn-primary:active {
+  background-color: #0050b3 !important;
+}
+
+/* Amélioration des messages d'erreur */
+.ant-form-item-explain-error {
+  margin-top: 2px !important;
+  font-size: 0.75rem;
+}
+
+/* Responsive */
+@media screen and (max-height: 900px) {
+  .create-employee {
+    padding-top: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .create-employee {
+    padding-top: 40px;
+  }
+
+  .create-employee h1 {
+    font-size: 2rem;
+  }
+
+  .create-employee h2 {
+    font-size: 1.5rem;
+  }
+
+  .ant-form {
+    padding: 1rem;
+  }
+}
+
+/* Réduction des espacements des labels */
+.ant-form-item-label {
+  padding-bottom: 4px !important;
+}
+
+/* Ajustement de l'espacement des groupes de champs */
+.ant-space-compact {
+  gap: 0.5rem !important;
 }

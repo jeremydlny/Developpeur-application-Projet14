@@ -1,0 +1,10 @@
+/* styles/components/forms/PersonalInfoFields.css */
+.personal-info-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .ant-picker {
+    width: 100%;
+  }
