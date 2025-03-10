@@ -5,6 +5,26 @@ import '@/styles/components/forms/PersonalInfoFields.css';
 
 const dateFormat = 'DD/MM/YYYY';
 
+/**
+ * Composant fonctionnel représentant les champs de formulaire pour les informations personnelles.
+ * 
+ * @component
+ * @example
+ * return (
+ *   <PersonalInfoFields />
+ * )
+ * 
+ * @returns {JSX.Element} Les champs de formulaire pour le prénom, le nom, la date de naissance et la date de début.
+ * 
+ * @description
+ * Ce composant rend quatre champs de formulaire utilisant Ant Design:
+ * - Prénom (firstName)
+ * - Nom (lastName)
+ * - Date de naissance (dateOfBirth)
+ * - Date de début (startDate)
+ * 
+ * Chaque champ est requis et affiche un message d'erreur personnalisé si le champ n'est pas rempli.
+ */
 const PersonalInfoFields = () => (
   <>
     <Form.Item

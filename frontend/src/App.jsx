@@ -17,6 +17,13 @@ const LoadingFallback = () => (
   </div>
 );
 
+/**
+ * Composant principal de l'application.
+ * Utilise Redux pour la gestion de l'état global et React Suspense pour le chargement asynchrone.
+ *
+ * @component
+ * @returns {JSX.Element} Le composant App.
+ */
 const App = () => {
   return (
     <Provider store={store}>

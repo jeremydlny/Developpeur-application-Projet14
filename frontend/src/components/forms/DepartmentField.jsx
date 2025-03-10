@@ -13,6 +13,14 @@ const departmentOptions = [
   { value: 'legal', label: 'Legal' }
 ];
 
+/**
+ * Composant DepartmentField
+ *
+ * Ce composant rend un champ de formulaire pour sélectionner un département.
+ * Il utilise Ant Design pour le rendu du champ de formulaire et du sélecteur.
+ *
+ * @returns {JSX.Element} Le champ de formulaire pour sélectionner un département.
+ */
 const DepartmentField = () => (
   <Form.Item
     name="department"

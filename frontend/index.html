@@ -4,24 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- Change preload to regular link tags -->
+    <!-- Préchargement optimisé -->
+    <link rel="preload" href="/src/styles/index.css" as="style">
     <link rel="stylesheet" href="/src/styles/index.css">
-    <link rel="stylesheet" href="/src/styles/pages/CreateEmployee.css">
     
-    <!-- Connexions préalables -->
+    <!-- Préconnections -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     
-    <!-- Chargement asynchrone des scripts non-critiques -->
+    <!-- Préchargement des modules critiques -->
     <link rel="modulepreload" href="/src/main.jsx">
-    <link rel="modulepreload" href="/src/App.jsx">
-    <meta name="description" content="HRnet employee management system">
     
+    <meta name="description" content="HRnet employee management system">
     <title>HRnet</title>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx" async defer></script>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

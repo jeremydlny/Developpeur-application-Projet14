@@ -4,6 +4,18 @@ import { states } from '@/utils/states';
 
 const { Option } = Select;
 
+/**
+ * Composant AddressFields
+ *
+ * Ce composant rend un ensemble de champs de formulaire pour saisir une adresse.
+ * Il inclut les champs suivants :
+ * - Rue (Street) : Champ de saisie obligatoire pour la rue.
+ * - Ville (City) : Champ de saisie obligatoire pour la ville.
+ * - État (State) : Sélecteur obligatoire pour choisir un état parmi une liste.
+ * - Code postal (Zip Code) : Champ de saisie obligatoire pour le code postal, qui doit être un nombre à 5 chiffres.
+ *
+ * @returns {JSX.Element} Le composant AddressFields.
+ */
 const AddressFields = () => (
   <Form.Item className="address-fields">
     <Form.Item

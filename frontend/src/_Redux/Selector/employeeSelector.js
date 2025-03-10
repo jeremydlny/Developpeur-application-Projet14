@@ -10,6 +10,13 @@ export const selectAllEmployees = createSelector(
 );
 
 // Sélecteur pour le filtrage des employés
+/**
+ * Sélecteur pour filtrer les employés en fonction d'un texte de recherche.
+ *
+ * @param {Array} employees - La liste de tous les employés.
+ * @param {string} searchText - Le texte de recherche pour filtrer les employés.
+ * @returns {Array} - La liste des employés filtrés en fonction du texte de recherche.
+ */
 export const selectFilteredEmployees = createSelector(
   [selectAllEmployees, (_, searchText) => searchText],
   (employees, searchText) => {

@@ -10,6 +10,20 @@ import dayjs from 'dayjs';
 
 const { Title } = Typography;
 
+/**
+ * Composant CreateEmployee
+ * 
+ * Ce composant permet de créer un nouvel employé en utilisant un formulaire.
+ * Lors de la soumission du formulaire, les données de l'employé sont formatées et envoyées à l'action `addEmployee`.
+ * Une fois l'employé ajouté avec succès, une modal de confirmation s'affiche.
+ * 
+ * @component
+ * 
+ * @returns {JSX.Element} Le composant CreateEmployee.
+ * 
+ * @example
+ * <CreateEmployee />
+ */
 const CreateEmployee = () => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();

@@ -20,7 +20,30 @@ const PAGE_SIZE_OPTIONS = [
 const DEFAULT_PAGE_SIZE = 10;
 
 // Composant EmployeeTable pour afficher les employés dans un tableau
-const EmployeeTable = React.memo(({ data = [] }) => { // Props : data (liste des employés) avec valeur par défaut et mémoisation
+/**
+ * Composant EmployeeTable
+ * 
+ * @param {Object} props - Les propriétés du composant
+ * @param {Array} [props.data=[]] - Liste des employés, par défaut un tableau vide
+ * 
+ * @returns {JSX.Element} - Le composant EmployeeTable
+ * 
+ * @description
+ * Ce composant affiche un tableau des employés avec des fonctionnalités de recherche, de tri et de pagination.
+ * 
+ * @example
+ * <EmployeeTable data={employeeData} />
+ * 
+ * @component
+ * 
+ * @requires dayjs - Pour le formatage des dates
+ * @requires debounce - Pour la gestion de la recherche avec délai
+ * @requires useState, useCallback, useMemo - Hooks React pour la gestion de l'état et des fonctions mémoisées
+ * @requires Link - Pour la navigation vers la création d'un nouvel employé
+ * @requires Select, Input, Table - Composants Ant Design pour la sélection, la saisie et l'affichage du tableau
+ * @requires SearchOutlined - Icône de recherche d'Ant Design
+ */
+const EmployeeTable = ({ data = [] }) => { // Props : data (liste des employés) avec valeur par défaut et mémoisation
   const [searchText, setSearchText] = useState(''); // État du texte de recherche
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE); // État de la taille de page
   const [currentPage, setCurrentPage] = useState(1); // État de la page actuelle
@@ -150,6 +173,6 @@ const EmployeeTable = React.memo(({ data = [] }) => { // Props : data (liste des
       />
     </div>
   );
-});
+};
 
 export default EmployeeTable;

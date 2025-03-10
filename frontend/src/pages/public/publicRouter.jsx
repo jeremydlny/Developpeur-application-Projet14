@@ -1,5 +1,3 @@
-//PublicRouter.jsx
-
 import React, { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import NotFound from '@/pages/public/NotFound';
@@ -19,6 +17,19 @@ const Loading = () => (
 );
 
 // Configuration des routes publiques
+/**
+ * Composant PublicRouter
+ * 
+ * Ce composant définit les routes publiques de l'application.
+ * Il utilise le composant `Routes` de React Router pour définir les différentes routes.
+ * 
+ * Routes définies :
+ * - `/` : Affiche le composant `CreateEmployee` avec un fallback `Loading` pendant le chargement.
+ * - `/employee-list` : Affiche le composant `EmployeeList` avec un fallback `Loading` pendant le chargement.
+ * - `*` : Affiche le composant `NotFound` pour toutes les autres routes (page 404).
+ * 
+ * @returns {JSX.Element} Les routes publiques de l'application.
+ */
 const PublicRouter = () => { // Composant PublicRouter
   return ( // Routes publiques
     <Routes> 
